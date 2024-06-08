@@ -5,6 +5,9 @@ import dotenv from 'dotenv';
 // Load environment variables from .env file
 dotenv.config();
 
+console.log('BOT_TOKEN:', process.env.BOT_TOKEN);  // Debug line to print BOT_TOKEN
+console.log('WEB_APP_URL:', process.env.WEB_APP_URL);  // Debug line to print WEB_APP_URL
+
 const token = process.env.BOT_TOKEN;
 const webAppUrl = process.env.WEB_APP_URL;
 
