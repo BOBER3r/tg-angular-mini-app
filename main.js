@@ -1,7 +1,12 @@
-import { Telegraf, Markup } from "telegraf";
-import { message } from "telegraf/filters";
-const token = '7352303919:AAGJBgWQhCbx9-0ldmL1bTONmxyd10L5AcM';
-const webAppUrl = 'https://angular-tg-app-4d0aa.web.app';
+import { Telegraf, Markup } from 'telegraf';
+import { message } from 'telegraf/filters';
+import dotenv from 'dotenv';
+
+// Load environment variables from .env file
+dotenv.config();
+
+const token = process.env.BOT_TOKEN;
+const webAppUrl = process.env.WEB_APP_URL;
 
 const bot = new Telegraf(token);
 
@@ -14,12 +19,12 @@ bot.command('start', (ctx) => {
                 `${webAppUrl}/feedback`
             )
         ])
-    )
-})
+    );
+});
 
-bot.on(message('web_app_data'), async (ctx) =>{
-    const data = ctx.webAppData.data.json()
-    ctx.reply(`Your message: ${data?.feedback}` ?? 'empty message')
-})
+bot.on(message('web_app_data'), async (ctx) => {
+    const data = JSON.parse(ctx.webAppData.data);
+    ctx.reply(`Your message: ${data?.feedback ?? 'empty message'}`);
+});
 
 bot.launch();
